@@ -1,7 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import connectMongoDB from './config/dbConnect';
 
 dotenv.config();
+
+connectMongoDB();
+// console.log('object')
 
 const app = express();
 
