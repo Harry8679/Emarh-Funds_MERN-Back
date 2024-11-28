@@ -15,14 +15,20 @@ interface RegisterRequestBody {
 router.post('/register', async (req: Request<any, any, RegisterRequestBody>, res: Response): Promise<void> => {
         try {
             // Vérifier si l'utilisateur existe déjà
-            const user = await UserModel.findOne({ email: req.body.email });
+            let { email, password } = req.body;
+            const user = await UserModel.findOne({ email });
             if (user) {
                 res.status(400).json({ message: 'User already exists' });
                 return;
             }
 
             // Hash the password
-            const hashedPassword;
+            const hashedPassword = await bcrypt.hash(password, 10);
+            password = hashedPassword;
+
+            // Create user
+            await UserModel.create(req.body);
+
 
             // Ajouter la logique pour créer un utilisateur ici
             // Exemple :
