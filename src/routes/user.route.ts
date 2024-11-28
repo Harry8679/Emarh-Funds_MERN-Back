@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import UserModel from '../models/user.model';
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
@@ -19,6 +20,9 @@ router.post('/register', async (req: Request<any, any, RegisterRequestBody>, res
                 res.status(400).json({ message: 'User already exists' });
                 return;
             }
+
+            // Hash the password
+            const hashedPassword;
 
             // Ajouter la logique pour créer un utilisateur ici
             // Exemple :
