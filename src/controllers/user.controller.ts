@@ -29,7 +29,8 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        res.status(400).json({ errors: errors.array() });
+        return;
     }
 
     const { email, password } = req.body;
@@ -38,13 +39,15 @@ export const login = async (req: Request, res: Response) => {
         // Vérifier si l'utilisateur existe
         const user = await UserModel.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            res.status(401).json({ message: 'Invalid email or password' });
+            return;
         }
 
         // Comparer le mot de passe
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            res.status(401).json({ message: 'Invalid email or password' });
+            return;
         }
 
         // Générer un token JWT
