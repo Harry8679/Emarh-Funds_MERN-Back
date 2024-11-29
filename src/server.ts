@@ -10,7 +10,7 @@ connectMongoDB();
 
 const app = express();
 
-app.use('/api/v1', userRoute);
+app.use('/api/v1/users', userRoute);
 
 const port = process.env.PORT || 5060;
 
