@@ -11,12 +11,6 @@ interface RegisterRequestBody {
     password: string;
 }
 
-// Route pour l'inscription
-// router.post('/register', async (req: Request, res: Response) => {
-//     console.log(req.body);
-//     res.status(200).json({ message: 'Validation skipped for testing' });
-// });
-
 router.post(
     '/register',
     [
