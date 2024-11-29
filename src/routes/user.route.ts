@@ -11,14 +11,8 @@ interface RegisterRequestBody {
     password: string;
 }
 
-router.post(
-    '/register',
-    [
-        body('email').isEmail().withMessage('Invalid email'),
-        body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
-        body('name').notEmpty().withMessage('Name is required'),
-    ],
-    async (req: Request, res: Response) => {
+router.post('/register',[body('email').isEmail().withMessage('Invalid email'), body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+        body('name').notEmpty().withMessage('Name is required')], async (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             res.status(400).json({ errors: errors.array() });
