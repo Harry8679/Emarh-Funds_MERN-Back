@@ -5,12 +5,6 @@ import UserModel from '../models/user.model';
 
 const router = express.Router();
 
-// Interface pour le corps de la requête
-interface RegisterRequestBody {
-    email: string;
-    password: string;
-}
-
 router.post('/register',[body('email').isEmail().withMessage('Invalid email'), body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
         body('name').notEmpty().withMessage('Name is required')], async (req: Request, res: Response) => {
         const errors = validationResult(req);
