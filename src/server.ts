@@ -10,6 +10,9 @@ connectMongoDB();
 
 const app = express();
 
+// Middleware pour parser le JSON
+app.use(express.json());
+
 app.use('/api/v1/users', userRoute);
 
 const port = process.env.PORT || 5060;
