@@ -3,6 +3,7 @@ import UserModel from '../models/user.model';
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { UserIdRequest } from '../../types/UserIdRequest';
 
 /************* Register ********************/
 export const register = async (req: Request, res: Response) => {
@@ -73,10 +74,18 @@ export const login = async (req: Request, res: Response) => {
     }
 };
 
-const currentUser = async (req: Request, res: Response) => {
+export const currentUser = async (req: UserIdRequest, res: Response) => {
     try {
-        const userId = req.user.userId
-    } catch (error) {}    
-}
+        if (!req.user || !req.user.userId) {
+            return res.status(401).json({ message: 'Unauthorized: User not found' });
+        }
+
+        const userId = req.user.userId; // Maintenant TypeScript sait que userId existe
+        res.status(200).json({ userId });
+    } catch (error) {
+        console.error('Error fetching current user:', error);
+        res.status(500).json({ message: 'An unexpected error occurred' });
+    }
+};
 
 
