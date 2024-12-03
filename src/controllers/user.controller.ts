@@ -75,7 +75,7 @@ export const login = async (req: Request, res: Response) => {
 
 const currentUser = async (req: Request, res: Response) => {
     try {
-        const userId = req.user.userId;
+        const userId = req.user.userId
     } catch (error) {}    
 }
 
